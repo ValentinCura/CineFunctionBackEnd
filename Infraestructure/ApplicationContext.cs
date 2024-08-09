@@ -88,7 +88,7 @@ namespace Infraestructure
                     Id = 5,
                     Name = "Star Wars: episodio II",
                     Description = "En el Senado Galáctico reina la inquietud. Varios miles de sistemas solares han declarado su intención de abandonar la República. La reina Amidala regresa al Senado para conseguir un ejército que ayude a los caballeros jedi.",
-                    IdDirector = 2.
+                    IdDirector = 2,
                     Origin = "Internacional"
                 });
 
