@@ -25,5 +25,8 @@ namespace Domain.Entities
         public int IdDirector { get; set; }
         public Director Director { get; set; }
 
+        [Required]
+        public string Origin { get; set; }
+
     }
 }

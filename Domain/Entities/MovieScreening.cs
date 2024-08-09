@@ -31,7 +31,6 @@ namespace Domain.Entities
         [ForeignKey("IdFilm")]
         public int IdFilm { get; set; }
         public Film Film { get; set; }
-        [Required]
-        public string Origin { get; set; }
+        
     }
 }
