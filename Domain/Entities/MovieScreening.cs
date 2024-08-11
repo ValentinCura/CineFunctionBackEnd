@@ -22,10 +22,11 @@ namespace Domain.Entities
         public DateTime Time { get; set; }
         [Required]
         public double Price { get; set; }
-        [Required]
-        [ForeignKey("IdDirector")]
-        public int IdDirector { get; set; }
-        public Director Director { get; set; }
+       
+        //no creo q haga falta ya que film tiene una relacion con el director 
+        //[ForeignKey("IdDirector")]
+        //public int IdDirector { get; set; }
+        //public Director Director { get; set; }
 
         [Required]
         [ForeignKey("IdFilm")]
