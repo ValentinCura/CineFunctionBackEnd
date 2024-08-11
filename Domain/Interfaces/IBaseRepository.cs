@@ -9,7 +9,7 @@ namespace Domain.Interfaces
     public interface IBaseRepository<T> where T : class
     {
         T? GetById<TId>(TId id);
-        Task<List<T>> Get();
+        List<T> Get();
         T? Add(T entity);
         T? Update(T entity);
         T Remove(T entity);

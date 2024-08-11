@@ -1,5 +1,8 @@
 
+using Domain.Entities;
+using Domain.Interfaces;
 using Infraestructure;
+using Infraestructure.Repositories;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +14,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region Repositories
+builder.Services.AddScoped<IBaseRepository<MovieScreening>, BaseRepository<MovieScreening>>();
+builder.Services.AddScoped<IBaseRepository<Film>, BaseRepository<Film>>();
+#endregion
+#region Services
+
+#endregion
 
 string connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"]!;
 

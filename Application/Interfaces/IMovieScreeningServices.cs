@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Models;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Application.Interfaces
 {
     public interface IMovieScreeningServices
     {
-        Task<IEnumerable<MovieScreening>> Get();
-        Task<MovieScreening> GetById(int id);
-        Task<MovieScreening> Add(MovieScreening movieScreening, int sellerId);
-        Task Delete(int id);
-        Task Update( MovieScreening movieScreening);
+        List<MovieScreeningDto> Get();
+        MovieScreeningDto GetById(int id);
+        MovieScreening Add(MovieScreeningRequest movieScreening);
+        void Delete(int id);
+        void Update(MovieScreeningRequest movieScreening, int id);
     }
 }
