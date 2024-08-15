@@ -1,4 +1,6 @@
 
+using Application.Interfaces;
+using Application.Services;
 using Domain.Entities;
 using Domain.Interfaces;
 using Infraestructure;
@@ -20,7 +22,7 @@ builder.Services.AddScoped<IBaseRepository<MovieScreening>, BaseRepository<Movie
 builder.Services.AddScoped<IBaseRepository<Film>, BaseRepository<Film>>();
 #endregion
 #region Services
-
+builder.Services.AddScoped<IMovieScreeningServices , MovieScreeningService>();
 #endregion
 
 string connectionString = builder.Configuration["ConnectionStrings:DBConnectionString"]!;
