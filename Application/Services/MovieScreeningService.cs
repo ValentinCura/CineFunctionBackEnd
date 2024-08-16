@@ -12,12 +12,12 @@ namespace Application.Services
 {
     public class MovieScreeningService : IMovieScreeningServices
     {
-        private readonly IBaseRepository<MovieScreening> _repositoryBase;
+        private readonly IMovieScreeningRepository _repositoryBase;
 
-        private readonly IBaseRepository<Film> _filmRepository;
-        public MovieScreeningService(IBaseRepository<MovieScreening> repositoryBase, IBaseRepository<Film> filmRepository)
+        private readonly IFilmRepository _filmRepository;
+        public MovieScreeningService(IMovieScreeningRepository movieScreeningRepository, IFilmRepository filmRepository)
         {
-            _repositoryBase = repositoryBase;
+            _repositoryBase = movieScreeningRepository;
             _filmRepository = filmRepository;
         }
 
