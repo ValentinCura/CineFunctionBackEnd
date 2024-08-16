@@ -15,10 +15,13 @@ namespace Application.Services
         private readonly IMovieScreeningRepository _repositoryBase;
 
         private readonly IFilmRepository _filmRepository;
-        public MovieScreeningService(IMovieScreeningRepository movieScreeningRepository, IFilmRepository filmRepository)
+
+        private readonly IDirectorRepository _directorRepository; 
+        public MovieScreeningService(IMovieScreeningRepository movieScreeningRepository, IFilmRepository filmRepository, IDirectorRepository directorRepository)
         {
             _repositoryBase = movieScreeningRepository;
             _filmRepository = filmRepository;
+            _directorRepository = directorRepository;
         }
 
         public List<MovieScreeningDto> Get()
@@ -46,13 +49,13 @@ namespace Application.Services
             var movieScreeningDto = MovieScreeningDto.Create(show);
             return movieScreeningDto;
         }
-        public MovieScreening Add(MovieScreeningRequest movieScreening)
+        public MovieScreening Add(MovieScreeningRequest movieScreeningRequest)
         {
 
             //en este caso traemos la listaa de shows para verificar y buscar los directores si ya tienen 1o funciones o mas
             var showsByDirector = _repositoryBase.Get();
-            var film = _filmRepository.GetById(movieScreening.IdFilm);
-            var directorShows = showsByDirector.Where(s => s.Film.IdDirector == film.IdDirector && s.Date.Date == movieScreening.Date.Date).ToList();
+            var film = _filmRepository.GetById(movieScreeningRequest.IdFilm);
+            var directorShows = showsByDirector.Where(s => s.Film.IdDirector == film.IdDirector && s.Date.Date == movieScreeningRequest.Date.Date).ToList();
 
             if (directorShows.Count >= 10)
                 throw new Exception("El director ya tiene 10 funciones en el día.");
@@ -60,7 +63,7 @@ namespace Application.Services
             if (film.Origin == "Internacional")
             {
                 var filmShowings = _repositoryBase.Get()
-                                    .Where(s => s.IdFilm == movieScreening.IdFilm && s.Date.Date == movieScreening.Date.Date)
+                                    .Where(s => s.IdFilm == movieScreeningRequest.IdFilm && s.Date.Date == movieScreeningRequest.Date.Date)
                                     .Count();
 
                 if (filmShowings >= 8)
@@ -69,15 +72,16 @@ namespace Application.Services
                 }
             }
 
-
-            //var director = _directorRepository.GetById(movieScreening.Film.IdDirector);
+            var filmA = _filmRepository.GetById(movieScreeningRequest.IdFilm);
+            var director = _directorRepository.GetById(filmA.IdDirector);
 
             var shows = new MovieScreening
             {
-                Date = movieScreening.Date,
-                Time = movieScreening.Time,
-                Price = movieScreening.Price,
-                IdFilm = movieScreening.IdFilm,
+                Date = movieScreeningRequest.Date,
+                Time = movieScreeningRequest.Time,
+                Price = movieScreeningRequest.Price,
+                IdFilm = movieScreeningRequest.IdFilm,
+                Director = director,
 
             };
 
@@ -95,7 +99,7 @@ namespace Application.Services
 
             _repositoryBase.Remove(movieScreening);
         }
-        public void Update(MovieScreeningRequest movieScreening, int id)
+        public void Update(MovieScreeningRequest movieScreeningRequest, int id)
         {
 
             var existingMovieScreening = _repositoryBase.GetById(id);
@@ -108,15 +112,30 @@ namespace Application.Services
             //var film = _filmRepository.GetById(movieScreening.IdFilm);
 
 
-            existingMovieScreening.Date = movieScreening.Date;
-            existingMovieScreening.Time = movieScreening.Time;
-            existingMovieScreening.Price = movieScreening.Price;
+            existingMovieScreening.Date = movieScreeningRequest.Date;
+            existingMovieScreening.Time = movieScreeningRequest.Time;
+            existingMovieScreening.Price = movieScreeningRequest.Price;
             //existingMovieScreening.Film = film;
-            existingMovieScreening.IdFilm = movieScreening.IdFilm;
+            existingMovieScreening.IdFilm = movieScreeningRequest.IdFilm;
 
 
 
             _repositoryBase.Update(existingMovieScreening);
         }
+
+        public List<FilmDto> GetFilms()
+        {
+
+            var film = _filmRepository.Get();
+
+            if (film == null || !film.Any())
+            {
+                return new List<FilmDto>();
+            }
+
+            var filmDto = FilmDto.CreateList(film);
+            return filmDto;
+        }
+
     }
 }

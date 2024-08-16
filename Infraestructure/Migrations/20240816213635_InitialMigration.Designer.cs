@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240816201840_Initial-Migration")]
+    [Migration("20240816213635_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -185,7 +185,7 @@ namespace Infraestructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FilmId")
+                    b.Property<int>("IdDirector")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("IdFilm")
@@ -194,12 +194,15 @@ namespace Infraestructure.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime>("Time")
+                    b.Property<string>("Time")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FilmId");
+                    b.HasIndex("IdDirector");
+
+                    b.HasIndex("IdFilm");
 
                     b.ToTable("MoviesScreening");
                 });
@@ -217,11 +220,19 @@ namespace Infraestructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.MovieScreening", b =>
                 {
-                    b.HasOne("Domain.Entities.Film", "Film")
+                    b.HasOne("Domain.Entities.Director", "Director")
                         .WithMany()
-                        .HasForeignKey("FilmId")
+                        .HasForeignKey("IdDirector")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.Film", "Film")
+                        .WithMany()
+                        .HasForeignKey("IdFilm")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Director");
 
                     b.Navigation("Film");
                 });

@@ -153,6 +153,16 @@ namespace Infraestructure
                 });
 
             modelBuilder.Entity<Film>()
+            .HasOne(f => f.Director)
+            .WithMany()
+            .HasForeignKey(f => f.IdDirector);
+
+            modelBuilder.Entity<MovieScreening>()
+                .HasOne(f => f.Film)
+                .WithMany()
+                .HasForeignKey(f => f.IdFilm);
+
+            modelBuilder.Entity<MovieScreening>()
                 .HasOne(f => f.Director)
                 .WithMany()
                 .HasForeignKey(f => f.IdDirector);

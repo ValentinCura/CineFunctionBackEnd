@@ -12,8 +12,9 @@ namespace Application.Interfaces
     {
         List<MovieScreeningDto> Get();
         MovieScreeningDto GetById(int id);
-        MovieScreening Add(MovieScreeningRequest movieScreening);
+        MovieScreening Add(MovieScreeningRequest movieScreeningRequest);
         void Delete(int id);
-        void Update(MovieScreeningRequest movieScreening, int id);
+        void Update(MovieScreeningRequest movieScreeningRequest, int id);
+        List<FilmDto> GetFilms();
     }
 }

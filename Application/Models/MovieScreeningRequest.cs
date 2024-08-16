@@ -13,10 +13,11 @@ namespace Application.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Required]
-        [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        
+        public string Time { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
         public int IdFilm { get; set; }
     }
 }

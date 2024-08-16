@@ -18,15 +18,16 @@ namespace Domain.Entities
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Required]
-        [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        
+        public string Time { get; set; }
         [Required]
         public double Price { get; set; }
-       
-        //no creo q haga falta ya que film tiene una relacion con el director 
-        //[ForeignKey("IdDirector")]
-        //public int IdDirector { get; set; }
-        //public Director Director { get; set; }
+
+
+        [Required]
+        [ForeignKey("IdDirector")]
+        public int IdDirector { get; set; }
+        public Director Director { get; set; }
 
         [Required]
         [ForeignKey("IdFilm")]

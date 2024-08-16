@@ -20,6 +20,7 @@ builder.Services.AddSwaggerGen();
 #region Repositories
 builder.Services.AddScoped<IMovieScreeningRepository, MovieScreeningRepository>();
 builder.Services.AddScoped<IFilmRepository, FilmRepository>();
+builder.Services.AddScoped<IDirectorRepository , DirectorRepository > ();
 #endregion
 #region Services
 builder.Services.AddScoped<IMovieScreeningServices , MovieScreeningService>();

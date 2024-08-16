@@ -49,5 +49,11 @@ namespace CineFunction.Controllers
             _movieScreeningServices.Delete(id);
             return NoContent();
         }
+        [HttpGet("[action]")]
+        public ActionResult<List<FilmDto>> Getfilms()
+        {
+            var film = _movieScreeningServices.GetFilms();
+            return Ok(film);
+        }
     }
 }

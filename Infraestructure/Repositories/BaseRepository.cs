@@ -20,7 +20,7 @@ namespace Infraestructure.Repositories
             return _context.Set<T>().Find(new object[] { id });
         }
 
-        public List<T>? Get()
+        public virtual List<T>? Get()
         {
             return _context.Set<T>().ToList();
         }

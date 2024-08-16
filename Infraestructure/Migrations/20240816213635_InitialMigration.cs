@@ -56,17 +56,23 @@ namespace Infraestructure.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Time = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Time = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<double>(type: "REAL", nullable: false),
-                    IdFilm = table.Column<int>(type: "INTEGER", nullable: false),
-                    FilmId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IdDirector = table.Column<int>(type: "INTEGER", nullable: false),
+                    IdFilm = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MoviesScreening", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MoviesScreening_Films_FilmId",
-                        column: x => x.FilmId,
+                        name: "FK_MoviesScreening_Directors_IdDirector",
+                        column: x => x.IdDirector,
+                        principalTable: "Directors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MoviesScreening_Films_IdFilm",
+                        column: x => x.IdFilm,
                         principalTable: "Films",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -105,9 +111,14 @@ namespace Infraestructure.Migrations
                 column: "IdDirector");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MoviesScreening_FilmId",
+                name: "IX_MoviesScreening_IdDirector",
                 table: "MoviesScreening",
-                column: "FilmId");
+                column: "IdDirector");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoviesScreening_IdFilm",
+                table: "MoviesScreening",
+                column: "IdFilm");
         }
 
         /// <inheritdoc />
