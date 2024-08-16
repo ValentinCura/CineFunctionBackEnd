@@ -18,8 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Repositories
-builder.Services.AddScoped<IBaseRepository<MovieScreening>, BaseRepository<MovieScreening>>();
-builder.Services.AddScoped<IBaseRepository<Film>, BaseRepository<Film>>();
+builder.Services.AddScoped<IMovieScreeningRepository, MovieScreeningRepository>();
+builder.Services.AddScoped<IFilmRepository, FilmRepository>();
 #endregion
 #region Services
 builder.Services.AddScoped<IMovieScreeningServices , MovieScreeningService>();
