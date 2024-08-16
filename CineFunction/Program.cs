@@ -40,6 +40,21 @@ using (var command = connection.CreateCommand())
 }
 
 builder.Services.AddDbContext<ApplicationContext>(dbContextOptions => dbContextOptions.UseSqlite(connection));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Policy1",
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -51,7 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("Policy1");
 app.UseAuthorization();
 
 app.MapControllers();
