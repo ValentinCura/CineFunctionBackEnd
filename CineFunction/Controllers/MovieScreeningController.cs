@@ -19,41 +19,84 @@ namespace CineFunction.Controllers
         [HttpGet("[action]")]
         public ActionResult<List<MovieScreeningDto>> Get() 
         {
-            var show = _movieScreeningServices.Get();
-            return Ok(show);
+            try 
+            {
+                var show = _movieScreeningServices.Get();
+                return Ok(show);
+            }
+            catch (Exception ex) {
+                return NotFound(ex.Message);
+            }
+            
         }
 
         [HttpGet("[action]/{id}")]
         public ActionResult<MovieScreeningDto> GetById([FromRoute] int id)
         {
-            var show = _movieScreeningServices.GetById(id); 
-            return Ok(show);
+            try 
+            {
+                var show = _movieScreeningServices.GetById(id);
+                return Ok(show);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
         [HttpPost("[action]")]
         public ActionResult Add([FromBody] MovieScreeningRequest movieScreeningRequest)
         {
-            var show = _movieScreeningServices.Add(movieScreeningRequest);
-            return Ok(show);
+            try
+            {
+                var show = _movieScreeningServices.Add(movieScreeningRequest);
+                return Ok(show);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("[action]/{id}")]
         public ActionResult Update([FromBody] MovieScreeningRequest movieScreeningRequest , [FromRoute] int id) 
         {
-             _movieScreeningServices.Update(movieScreeningRequest , id);
-            return NoContent();
+            try 
+            {
+                _movieScreeningServices.Update(movieScreeningRequest, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
 
         }
         [HttpDelete("[action] / {id}")]
-        public ActionResult Delete(int id) 
-        { 
-            _movieScreeningServices.Delete(id);
-            return NoContent();
+        public ActionResult Delete(int id)
+        {
+            try 
+            {
+                _movieScreeningServices.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
         [HttpGet("[action]")]
         public ActionResult<List<FilmDto>> Getfilms()
         {
-            var film = _movieScreeningServices.GetFilms();
-            return Ok(film);
+            try 
+            {
+                var film = _movieScreeningServices.GetFilms();
+                return Ok(film);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
         }
     }
 }
