@@ -71,7 +71,7 @@ namespace CineFunction.Controllers
             }
 
         }
-        [HttpDelete("[action] / {id}")]
+        [HttpDelete("[action]/{id}")]
         public ActionResult Delete(int id)
         {
             try 
