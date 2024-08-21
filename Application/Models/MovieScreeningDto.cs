@@ -10,11 +10,12 @@ namespace Application.Models
 {
     public class MovieScreeningDto
     {
+        public int Id { get; set; }
         [Required]
         public DateTime Date { get; set; }
 
         [Required]
-        
+
         public string Time { get; set; }
 
         [Required]
@@ -29,6 +30,7 @@ namespace Application.Models
         {
             return new MovieScreeningDto
             {
+                Id = movieScreening.Id,
                 Date = movieScreening.Date,
                 Time = movieScreening.Time,
                 Price = movieScreening.Price,

@@ -63,7 +63,7 @@ namespace Application.Services
             if (film.Origin == "Internacional")
             {
                 var filmShowings = _repositoryBase.Get()
-                                    .Where(s => s.IdFilm == movieScreeningRequest.IdFilm && s.Date.Date == movieScreeningRequest.Date.Date)
+                                    .Where(s => s.Film.Origin == "internacional" && s.Date.Date == movieScreeningRequest.Date.Date)
                                     .Count();
 
                 if (filmShowings >= 8)
